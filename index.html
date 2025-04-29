@@ -93,6 +93,11 @@
       padding: 0.5rem 0;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
+    .nav-menu {
+      display: flex;
+      justify-content: center; /* Center the menu items horizontally */
+      gap: 2rem; /* Adjust spacing between menu items */
+    }
     .nav-link {
       position: relative;
       display: flex;
@@ -133,12 +138,6 @@
     @media (max-width: 768px) {
       .navbar {
         display: none; /* Hide navbar completely on mobile */
-      }
-    }
-    @media (min-width: 769px) {
-      .nav-menu {
-        display: flex;
-        space-x-8;
       }
     }
     /* Efek paralaks untuk hero */
@@ -447,6 +446,138 @@
       font-size: 2rem;
       margin-bottom: 1rem;
     }
+    /* Styling untuk Donation Section */
+    #donation {
+      background: linear-gradient(135deg, #ffedd5 0%, #f97316 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #donation-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .donation-particle {
+      position: absolute;
+      background: rgba(30, 58, 138, 0.5);
+      border-radius: 50%;
+      animation: float-donation 12s infinite;
+    }
+    @keyframes float-donation {
+      0% { transform: translateY(0) translateX(0); opacity: 0.7; }
+      50% { opacity: 0.4; transform: translateY(-20vh) translateX(5vw); }
+      100% { transform: translateY(-50vh) translateX(-5vw); opacity: 0; }
+    }
+    .donation-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      padding: 2rem;
+    }
+    .donation-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+    .donation-input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    .donation-input:focus {
+      border-color: #facc15;
+      box-shadow: 0 0 5px rgba(250, 204, 21, 0.3);
+    }
+    .donation-button {
+      background: #facc15;
+      color: #1e3a8a;
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .donation-button:hover {
+      background: #eab308;
+      transform: scale(1.05);
+    }
+    /* Styling untuk Leaderboard Section */
+    #leaderboard {
+      background: linear-gradient(135deg, #e0f2fe 0%, #0ea5e9 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #leaderboard-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .leaderboard-particle {
+      position: absolute;
+      background: rgba(250, 204, 21, 0.5);
+      border-radius: 50%;
+      animation: float-leaderboard 12s infinite;
+    }
+    @keyframes float-leaderboard {
+      0% { transform: translateY(0) translateX(0); opacity: 0.7; }
+      50% { opacity: 0.4; transform: translateY(-20vh) translateX(5vw); }
+      100% { transform: translateY(-50vh) translateX(-5vw); opacity: 0; }
+    }
+    .leaderboard-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+    .leaderboard-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      transition: background 0.3s ease;
+    }
+    .leaderboard-item:last-child {
+      border-bottom: none;
+    }
+    .leaderboard-item:hover {
+      background: rgba(250, 204, 21, 0.1);
+    }
+    .leaderboard-item.top-donor {
+      background: rgba(250, 204, 21, 0.2);
+      font-weight: 700;
+    }
+    .leaderboard-name {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #1e3a8a;
+    }
+    .leaderboard-amount {
+      color: #4b5563;
+      font-weight: 500;
+    }
+    .leaderboard-item i {
+      color: #facc15;
+      font-size: 1.5rem;
+    }
     /* Styling untuk Thank You Section */
     #thankyou {
       background-color: #f5f5f5;
@@ -564,6 +695,31 @@
       .favorite-card i {
         font-size: 1.5rem; /* Reduced from 2rem */
       }
+      /* Donation Section: Adjust padding and font sizes */
+      .donation-card {
+        padding: 1rem;
+      }
+      .donation-input {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+      }
+      .donation-button {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.875rem;
+      }
+      /* Leaderboard Section: Adjust padding and font sizes */
+      .leaderboard-card {
+        padding: 1rem;
+      }
+      .leaderboard-item {
+        padding: 0.75rem;
+      }
+      .leaderboard-name, .leaderboard-amount {
+        font-size: 0.875rem;
+      }
+      .leaderboard-item i {
+        font-size: 1rem;
+      }
       /* Contact Section: Adjust card padding and font sizes */
       .contact-card {
         padding: 1rem;
@@ -579,7 +735,7 @@
         font-size: 2.5rem; /* Already set for mobile */
       }
       /* Reduce particle density on mobile for performance */
-      .hero-particle, .particle, .about-particle, .biodata-particle, .favorite-particle, .contact-particle, .thankyou-particle {
+      .hero-particle, .particle, .about-particle, .biodata-particle, .favorite-particle, .contact-particle, .donation-particle, .leaderboard-particle, .thankyou-particle {
         display: none; /* Disable particles on mobile to improve performance */
       }
     }
@@ -588,14 +744,14 @@
 <body class="font-sans">
   <!-- Navbar (Visible only on Desktop) -->
   <nav class="navbar fixed w-full z-20">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div></div> <!-- Placeholder kosong -->
-      <div class="nav-menu flex space-x-8">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="nav-menu flex justify-center space-x-8">
         <a href="#home" class="nav-link text-lg text-blue-900" data-section="home"><i class="fas fa-home"></i>Home</a>
         <a href="#about" class="nav-link text-lg text-blue-900" data-section="about"><i class="fas fa-user"></i>About</a>
         <a href="#education" class="nav-link text-lg text-blue-900" data-section="education"><i class="fas fa-graduation-cap"></i>Pendidikan</a>
         <a href="#biodata" class="nav-link text-lg text-blue-900" data-section="biodata"><i class="fas fa-id-card"></i>Biodata</a>
         <a href="#favorites" class="nav-link text-lg text-blue-900" data-section="favorites"><i class="fas fa-heart"></i>Favorites</a>
+        <a href="#donation" class="nav-link text-lg text-blue-900" data-section="donation"><i class="fas fa-donate"></i>Donation</a>
         <a href="#contact" class="nav-link text-lg text-blue-900" data-section="contact"><i class="fas fa-envelope"></i>Contact</a>
       </div>
     </div>
@@ -742,7 +898,7 @@
               <i class="fas fa-quote-left"></i>
               <span>Motto:</span>
             </div>
-            <div class="biodata-value">"Stop Judol."</div>
+            <div class="biodata-value">"NO TIME TO DIE."</div>
           </div>
         </div>
       </div>
@@ -778,6 +934,78 @@
               Film karya Christopher Nolan ini mengguncang pikiran dengan dunia mimpi yang kompleks dan visual yang memukau. 
               Ceritanya mengajak saya untuk terus berpikir dan menjelajahi batas realitas.
             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donation Section -->
+  <section id="donation" class="py-24 relative">
+    <div id="donation-particles"></div>
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in drop-shadow-lg">Donasi untuk Masa Depan yang Lebih Baik</h2>
+      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto">
+        Bersama, kita bisa membuat perubahan! Donasi Anda akan membantu saya melanjutkan proyek-proyek teknologi yang bermanfaat bagi banyak orang. 
+        Setiap rupiah yang Anda berikan sangat berarti untuk mewujudkan ide-ide inovatif. Mari kita wujudkan impian bersama!
+      </p>
+      <div class="donation-card fade-in">
+        <div class="p-6">
+          <div class="mb-4">
+            <input type="text" placeholder="Nama Anda" class="donation-input" />
+          </div>
+          <div class="mb-4">
+            <input type="number" placeholder="Jumlah Donasi (Rp)" class="donation-input" min="1000" />
+          </div>
+          <a href="qris.html" class="donation-button btn-hover">
+            <i class="fas fa-donate mr-2"></i>Donasi Sekarang
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leaderboard Section -->
+  <section id="leaderboard" class="py-24 relative">
+    <div id="leaderboard-particles"></div>
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in drop-shadow-lg">Papan Donatur Teratas</h2>
+      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto">
+        Terima kasih kepada para donatur yang telah memberikan dukungan luar biasa! 
+        Nama Anda di sini adalah simbol kebaikan hati yang menginspirasi banyak orang.
+      </p>
+      <div class="leaderboard-card fade-in">
+        <div class="p-6">
+          <div class="leaderboard-item top-donor">
+            <div class="leaderboard-name">
+              <i class="fas fa-trophy"></i>
+              <span>IBNU</span>
+            </div>
+            <div class="leaderboard-amount">Rp 5.000.000</div>
+          </div>
+          <div class="leaderboard-item">
+            <div class="leaderboard-name">
+              <span>2. DHEO</span>
+            </div>
+            <div class="leaderboard-amount">Rp 3.000.000</div>
+          </div>
+          <div class="leaderboard-item">
+            <div class="leaderboard-name">
+              <span>3. RAFA</span>
+            </div>
+            <div class="leaderboard-amount">Rp 1.500.000</div>
+          </div>
+          <div class="leaderboard-item">
+            <div class="leaderboard-name">
+              <span>4. RAFALA</span>
+            </div>
+            <div class="leaderboard-amount">Rp 1.000.000</div>
+          </div>
+          <div class="leaderboard-item">
+            <div class="leaderboard-name">
+              <span>5. Donatur Anonim</span>
+            </div>
+            <div class="leaderboard-amount">Rp 500.000</div>
           </div>
         </div>
       </div>
@@ -934,6 +1162,40 @@
       setInterval(createFavoriteParticle, 250);
     }
 
+    // Efek partikel untuk donation
+    const donationParticlesContainer = document.getElementById('donation-particles');
+    function createDonationParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('donation-particle');
+      particle.style.width = `${Math.random() * 7 + 3}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+      donationParticlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 12000);
+    }
+    if (window.innerWidth > 768) {
+      setInterval(createDonationParticle, 250);
+    }
+
+    // Efek partikel untuk leaderboard
+    const leaderboardParticlesContainer = document.getElementById('leaderboard-particles');
+    function createLeaderboardParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('leaderboard-particle');
+      particle.style.width = `${Math.random() * 7 + 3}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+      leaderboardParticlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 12000);
+    }
+    if (window.innerWidth > 768) {
+      setInterval(createLeaderboardParticle, 250);
+    }
+
     // Efek partikel untuk contact
     const contactParticlesContainer = document.getElementById('contact-particles');
     function createContactParticle() {
@@ -976,6 +1238,7 @@
       { id: 'education', color: '#facc15' },
       { id: 'biodata', color: '#818cf8' },
       { id: 'favorites', color: '#1e3a8a' },
+      { id: 'donation', color: '#f97316' },
       { id: 'contact', color: '#ec4899' }
     ];
 
