@@ -6,6 +6,7 @@
   <title>Muhammad Ibnu Fauzi</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Animasi untuk transisi halus */
     .fade-in {
@@ -166,6 +167,11 @@
       }
       .hamburger.active div:nth-child(3) {
         transform: rotate(-45deg) translate(7px, -7px);
+      }
+      /* Responsive font size for nav links on mobile */
+      .nav-link {
+        font-size: 1rem;
+        padding: 0.5rem 0;
       }
     }
     /* Efek paralaks untuk hero */
@@ -474,6 +480,137 @@
       font-size: 2rem;
       margin-bottom: 1rem;
     }
+    /* Styling untuk Thank You Section */
+    #thankyou {
+      background-color: #f5f5f5;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #thankyou-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .thankyou-particle {
+      position: absolute;
+      background: rgba(30, 58, 138, 0.3);
+      border-radius: 50%;
+      animation: float-thankyou 12s infinite;
+    }
+    @keyframes float-thankyou {
+      0% { transform: translateY(0) translateX(0); opacity: 0.7; }
+      50% { opacity: 0.4; transform: translateY(-20vh) translateX(5vw); }
+      100% { transform: translateY(-50vh) translateX(-5vw); opacity: 0; }
+    }
+    .thankyou-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5rem;
+      color: #1e3a8a;
+      font-weight: 700;
+      line-height: 1.2;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    /* Responsive Design Adjustments Using Media Queries */
+    @media (max-width: 768px) {
+      /* Hero Section: Adjust font sizes and padding for mobile */
+      #home h2 {
+        font-size: 2.5rem; /* Reduced from 6xl */
+      }
+      #home p {
+        font-size: 1.25rem; /* Reduced from 2xl */
+      }
+      #home a {
+        padding: 0.5rem 1.5rem; /* Smaller button padding */
+        font-size: 0.875rem;
+      }
+      /* General Section Headings: Smaller font on mobile */
+      section h2 {
+        font-size: 2.5rem; /* Reduced from 5xl */
+      }
+      section p {
+        font-size: 1rem; /* Reduced from lg */
+      }
+      /* About Section: Stack cards vertically and adjust padding */
+      .about-card {
+        padding: 1rem;
+      }
+      .about-card h3 {
+        font-size: 1.25rem; /* Reduced from 1.5rem */
+      }
+      .about-card p {
+        font-size: 0.875rem; /* Smaller text */
+      }
+      .about-card i {
+        font-size: 1.5rem; /* Reduced from 2rem */
+      }
+      /* Education Section: Adjust card height and font sizes */
+      .card-hover {
+        height: 120px; /* Reduced height for mobile */
+      }
+      .card-front h3 {
+        font-size: 1.25rem; /* Reduced from 2xl */
+      }
+      .card-front p {
+        font-size: 0.875rem; /* Reduced from lg */
+      }
+      .card-back p {
+        font-size: 0.875rem; /* Reduced from lg */
+      }
+      /* Biodata Section: Adjust padding and font sizes */
+      .biodata-item {
+        padding: 0.75rem 1rem; /* Reduced padding */
+      }
+      .biodata-label {
+        font-size: 0.875rem; /* Smaller font */
+      }
+      .biodata-value {
+        font-size: 0.875rem; /* Smaller font */
+      }
+      .biodata-item i {
+        font-size: 1rem; /* Reduced from 1.5rem */
+      }
+      /* Favorites Section: Adjust image height and font sizes */
+      .favorite-card img {
+        height: 150px; /* Reduced from 200px */
+      }
+      .favorite-card h3 {
+        font-size: 1.25rem; /* Reduced from 1.5rem */
+      }
+      .favorite-card p {
+        font-size: 0.875rem; /* Smaller text */
+      }
+      .favorite-card i {
+        font-size: 1.5rem; /* Reduced from 2rem */
+      }
+      /* Contact Section: Adjust card padding and font sizes */
+      .contact-card {
+        padding: 1rem;
+      }
+      .contact-card h3 {
+        font-size: 1.25rem; /* Reduced from 1.5rem */
+      }
+      .contact-card i {
+        font-size: 1.5rem; /* Reduced from 2rem */
+      }
+      /* Thank You Section: Already adjusted in previous step */
+      .thankyou-text {
+        font-size: 2.5rem; /* Already set for mobile */
+      }
+      /* Reduce particle density on mobile for performance */
+      .hero-particle, .particle, .about-particle, .biodata-particle, .favorite-particle, .contact-particle, .thankyou-particle {
+        display: none; /* Disable particles on mobile to improve performance */
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-900">
@@ -502,7 +639,7 @@
     <div id="hero-particles"></div>
     <div class="text-center fade-in relative z-10">
       <h2 class="text-6xl font-extrabold mb-4 tracking-tight typing">Muhammad Ibnu Fauzi</h2>
-      <p class="text-2xl mb-6 font-light">Mahasiswa Teknik Informatika</p>
+      <p class="text-2xl mb-6 font-light">Mahasiswa Teknik Informatika | Pengembang Web</p>
       <a href="#about" class="bg-yellow-400 text-blue-900 px-8 py-3 rounded-full font-semibold btn-hover">Kenali Saya</a>
     </div>
   </section>
@@ -557,7 +694,7 @@
         <div class="fade-in rounded-xl shadow-lg card-hover">
           <div class="card-inner">
             <div class="card-front">
-              <h3 class="text-2xl font-semibold text-blue-900">SMAN 04 Cileungsi</h3>
+              <h3 class="text-2xl font-semibold text-blue-900">SMAN 02 Cileungsi</h3>
               <p class="text-yellow-400 font-medium text-lg">2020 - 2023</p>
             </div>
             <div class="card-back">
@@ -638,7 +775,7 @@
               <i class="fas fa-quote-left"></i>
               <span>Motto:</span>
             </div>
-            <div class="biodata-value">"Stop Judol!."</div>
+            <div class="biodata-value">"NO TIME TO DIE."</div>
           </div>
         </div>
       </div>
@@ -712,6 +849,14 @@
     </div>
   </footer>
 
+  <!-- Thank You Section -->
+  <section id="thankyou">
+    <div id="thankyou-particles"></div>
+    <div class="relative z-10">
+      <h2 class="thankyou-text fade-in">Thank You for Your Attention</h2>
+    </div>
+  </section>
+
   <!-- JavaScript untuk animasi, partikel, dan navbar dinamis -->
   <script>
     // Animasi fade-in saat scroll
@@ -747,7 +892,9 @@
       particlesContainer.appendChild(particle);
       setTimeout(() => particle.remove(), 15000);
     }
-    setInterval(createParticle, 300);
+    if (window.innerWidth > 768) { // Only create particles on larger screens
+      setInterval(createParticle, 300);
+    }
 
     // Efek partikel untuk hero
     const heroParticlesContainer = document.getElementById('hero-particles');
@@ -762,7 +909,9 @@
       heroParticlesContainer.appendChild(particle);
       setTimeout(() => particle.remove(), 10000);
     }
-    setInterval(createHeroParticle, 200);
+    if (window.innerWidth > 768) {
+      setInterval(createHeroParticle, 200);
+    }
 
     // Efek partikel untuk about
     const aboutParticlesContainer = document.getElementById('about-particles');
@@ -777,7 +926,9 @@
       aboutParticlesContainer.appendChild(particle);
       setTimeout(() => particle.remove(), 12000);
     }
-    setInterval(createAboutParticle, 250);
+    if (window.innerWidth > 768) {
+      setInterval(createAboutParticle, 250);
+    }
 
     // Efek partikel untuk biodata
     const biodataParticlesContainer = document.getElementById('biodata-particles');
@@ -792,7 +943,9 @@
       biodataParticlesContainer.appendChild(particle);
       setTimeout(() => particle.remove(), 12000);
     }
-    setInterval(createBiodataParticle, 250);
+    if (window.innerWidth > 768) {
+      setInterval(createBiodataParticle, 250);
+    }
 
     // Efek partikel untuk favorites
     const favoritesParticlesContainer = document.getElementById('favorites-particles');
@@ -807,7 +960,9 @@
       favoritesParticlesContainer.appendChild(particle);
       setTimeout(() => particle.remove(), 12000);
     }
-    setInterval(createFavoriteParticle, 250);
+    if (window.innerWidth > 768) {
+      setInterval(createFavoriteParticle, 250);
+    }
 
     // Efek partikel untuk contact
     const contactParticlesContainer = document.getElementById('contact-particles');
@@ -822,7 +977,26 @@
       contactParticlesContainer.appendChild(particle);
       setTimeout(() => particle.remove(), 12000);
     }
-    setInterval(createContactParticle, 250);
+    if (window.innerWidth > 768) {
+      setInterval(createContactParticle, 250);
+    }
+
+    // Efek partikel untuk thankyou
+    const thankyouParticlesContainer = document.getElementById('thankyou-particles');
+    function createThankyouParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('thankyou-particle');
+      particle.style.width = `${Math.random() * 7 + 3}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+      thankyouParticlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 12000);
+    }
+    if (window.innerWidth > 768) {
+      setInterval(createThankyouParticle, 250);
+    }
 
     // Navbar warna dinamis
     const navLinks = document.querySelectorAll('.nav-link');
