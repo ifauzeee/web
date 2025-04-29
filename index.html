@@ -8,6 +8,53 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* Default Light Theme */
+    :root {
+      --bg-color: #f5f5f5;
+      --text-color: #1e3a8a;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-text: #4b5563;
+      --accent-color: #facc15;
+      --navbar-bg: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+      --footer-bg: #1e3a8a;
+      --footer-text: #ffffff;
+    }
+
+    /* Dark AMOLED Black Theme */
+    body.dark-theme {
+      --bg-color: #000000;
+      --text-color: #ffffff;
+      --card-bg: rgba(30, 30, 30, 0.95);
+      --card-text: #d1d5db;
+      --accent-color: #facc15;
+      --navbar-bg: linear-gradient(90deg, rgba(20, 20, 20, 0.95), rgba(20, 20, 20, 0.85));
+      --footer-bg: #111111;
+      --footer-text: #d1d5db;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 30;
+      background: var(--accent-color);
+      color: var(--text-color);
+      padding: 0.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .theme-toggle:hover {
+      background: #eab308;
+    }
+
     /* Animasi untuk transisi halus */
     .fade-in {
       opacity: 0;
@@ -63,16 +110,16 @@
       align-items: center;
       padding: 1rem;
       border-radius: 1rem;
-      background: rgba(255, 255, 255, 0.9);
+      background: var(--card-bg);
     }
     .card-back {
       transform: rotateY(180deg);
-      background: #facc15;
-      color: #1e3a8a;
+      background: var(--accent-color);
+      color: var(--text-color);
     }
     /* Navbar keren */
     .navbar {
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+      background: var(--navbar-bg);
       backdrop-filter: blur(10px);
       transition: padding 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
       position: fixed;
@@ -98,7 +145,7 @@
       --underline-color: #ffffff;
     }
     .nav-link:hover {
-      color: #facc15;
+      color: var(--accent-color);
       transform: scale(1.2);
       box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
     }
@@ -125,91 +172,19 @@
     .nav-link:hover i {
       transform: rotate(10deg);
     }
-    /* Hamburger menu untuk mobile */
+    /* Hide hamburger and mobile menu */
     .hamburger {
       display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      z-index: 30;
-    }
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background: #1e3a8a;
-      transition: all 0.3s ease;
-    }
-    .nav-menu {
-      transition: all 0.3s ease;
-    }
-    /* Overlay untuk mobile menu saat aktif */
-    .nav-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 10;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-    .nav-overlay.active {
-      opacity: 1;
-      visibility: visible;
     }
     @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
+      .navbar {
+        display: none; /* Hide navbar completely on mobile */
       }
+    }
+    @media (min-width: 769px) {
       .nav-menu {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.95);
-        flex-direction: column;
-        padding: 5rem 1rem 1rem 1rem; /* Adjusted padding to account for navbar height */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        z-index: 20;
-        overflow-y: auto;
-        justify-content: flex-start;
-        align-items: center;
-      }
-      .nav-menu.active {
         display: flex;
-      }
-      .hamburger.active div:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-      }
-      .hamburger.active div:nth-child(2) {
-        opacity: 0;
-      }
-      .hamburger.active div:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -7px);
-      }
-      /* Synchronize menu item layout on mobile */
-      .nav-menu .nav-link {
-        font-size: 1.25rem;
-        padding: 1rem 0; /* Increased padding for better touch area */
-        margin: 0;
-        width: 100%;
-        max-width: 300px; /* Limit width for better alignment */
-        justify-content: center;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        transition: background 0.3s ease;
-      }
-      .nav-menu .nav-link:hover {
-        background: rgba(250, 204, 21, 0.1);
-      }
-      .nav-menu .nav-link:last-child {
-        border-bottom: none;
-      }
-      .nav-menu .nav-link i {
-        margin-right: 0.75rem; /* Slightly increased spacing for better visuals */
+        space-x-8;
       }
     }
     /* Efek paralaks untuk hero */
@@ -247,6 +222,9 @@
       position: relative;
       overflow: hidden;
     }
+    body.dark-theme #education {
+      background: linear-gradient(135deg, #0a1a4a 0%, #1a3b7a 100%);
+    }
     /* Efek partikel untuk pendidikan */
     #particles {
       position: absolute;
@@ -274,6 +252,9 @@
       position: relative;
       overflow: hidden;
     }
+    body.dark-theme #about {
+      background: linear-gradient(135deg, #1a3b2a 0%, #0a3b2a 100%);
+    }
     #about-particles {
       position: absolute;
       top: 0;
@@ -296,7 +277,7 @@
     }
     .about-card {
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--card-bg);
       border-radius: 1rem;
       overflow: hidden;
       position: relative;
@@ -309,15 +290,15 @@
     .about-card h3 {
       font-size: 1.5rem;
       font-weight: 600;
-      color: #1e3a8a;
+      color: var(--text-color);
       margin-bottom: 0.5rem;
     }
     .about-card p {
-      color: #4b5563;
+      color: var(--card-text);
       line-height: 1.6;
     }
     .about-card i {
-      color: #facc15;
+      color: var(--accent-color);
       font-size: 2rem;
       margin-bottom: 1rem;
     }
@@ -326,6 +307,9 @@
       background: linear-gradient(135deg, #e0e7ff 0%, #818cf8 100%);
       position: relative;
       overflow: hidden;
+    }
+    body.dark-theme #biodata {
+      background: linear-gradient(135deg, #2a2a5a 0%, #3a3a7a 100%);
     }
     #biodata-particles {
       position: absolute;
@@ -350,7 +334,7 @@
     .biodata-card {
       max-width: 600px;
       margin: 0 auto;
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--card-bg);
       border-radius: 1.5rem;
       border: 1px solid rgba(0, 0, 0, 0.05);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -375,13 +359,13 @@
       align-items: center;
       gap: 0.5rem;
       font-weight: 600;
-      color: #1e3a8a;
+      color: var(--text-color);
     }
     .biodata-value {
-      color: #4b5563;
+      color: var(--card-text);
     }
     .biodata-item i {
-      color: #facc15;
+      color: var(--accent-color);
       font-size: 1.5rem;
     }
     /* Styling untuk Contact */
@@ -389,6 +373,9 @@
       background: linear-gradient(135deg, #fce7f3 0%, #ec4899 100%);
       position: relative;
       overflow: hidden;
+    }
+    body.dark-theme #contact {
+      background: linear-gradient(135deg, #4a1a3a 0%, #5a2a4a 100%);
     }
     #contact-particles {
       position: absolute;
@@ -412,7 +399,7 @@
     }
     .contact-card {
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--card-bg);
       border-radius: 1rem;
       overflow: hidden;
       position: relative;
@@ -426,11 +413,11 @@
     .contact-card h3 {
       font-size: 1.5rem;
       font-weight: 600;
-      color: #1e3a8a;
+      color: var(--text-color);
       margin-bottom: 0.5rem;
     }
     .contact-card i {
-      color: #facc15;
+      color: var(--accent-color);
       font-size: 2rem;
       margin-bottom: 1rem;
     }
@@ -456,13 +443,16 @@
     }
     .social-icon:hover {
       transform: scale(1.3) rotate(360deg);
-      color: #facc15;
+      color: var(--accent-color);
     }
     /* Styling untuk My Favorites */
     #favorites {
       background: linear-gradient(135deg, #fef3c7 0%, #facc15 100%);
       position: relative;
       overflow: hidden;
+    }
+    body.dark-theme #favorites {
+      background: linear-gradient(135deg, #4a3a1a 0%, #5a4a2a 100%);
     }
     #favorites-particles {
       position: absolute;
@@ -486,7 +476,7 @@
     }
     .favorite-card {
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      background: rgba(255, 255, 251, 0.95);
+      background: var(--card-bg);
       border-radius: 1rem;
       overflow: hidden;
       position: relative;
@@ -506,21 +496,21 @@
     .favorite-card h3 {
       font-size: 1.5rem;
       font-weight: 600;
-      color: #1e3a8a;
+      color: var(--text-color);
       margin-bottom: 0.5rem;
     }
     .favorite-card p {
-      color: #4b5563;
+      color: var(--card-text);
       line-height: 1.6;
     }
     .favorite-card i {
-      color: #facc15;
+      color: var(--accent-color);
       font-size: 2rem;
       margin-bottom: 1rem;
     }
     /* Styling untuk Thank You Section */
     #thankyou {
-      background-color: #f5f5f5;
+      background-color: var(--bg-color);
       min-height: 50vh;
       display: flex;
       align-items: center;
@@ -553,10 +543,15 @@
     .thankyou-text {
       font-family: 'Dancing Script', cursive;
       font-size: 3.5rem;
-      color: #1e3a8a;
+      color: var(--text-color);
       font-weight: 700;
       line-height: 1.2;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    /* Footer */
+    footer {
+      background: var(--footer-bg);
+      color: var(--footer-text);
     }
     /* Responsive Design Adjustments Using Media Queries */
     @media (max-width: 768px) {
@@ -640,7 +635,7 @@
       .contact-card i {
         font-size: 1.5rem; /* Reduced from 2rem */
       }
-      /* Thank You Section: Already adjusted in previous step */
+      /* Thank You Section */
       .thankyou-text {
         font-size: 2.5rem; /* Already set for mobile */
       }
@@ -651,16 +646,11 @@
     }
   </style>
 </head>
-<body class="bg-gray-50 font-sans text-gray-900">
-  <!-- Navbar -->
+<body class="font-sans">
+  <!-- Navbar (Visible only on Desktop) -->
   <nav class="navbar fixed w-full z-20">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       <div></div> <!-- Placeholder kosong -->
-      <div class="hamburger">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
       <div class="nav-menu flex space-x-8">
         <a href="#home" class="nav-link text-lg text-blue-900" data-section="home"><i class="fas fa-home"></i>Home</a>
         <a href="#about" class="nav-link text-lg text-blue-900" data-section="about"><i class="fas fa-user"></i>About</a>
@@ -672,8 +662,10 @@
     </div>
   </nav>
 
-  <!-- Overlay untuk mobile menu -->
-  <div class="nav-overlay"></div>
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle" onclick="toggleTheme()">
+    <i id="theme-icon" class="fas fa-moon"></i>
+  </div>
 
   <!-- Hero Section -->
   <section id="home" class="min-h-screen flex items-center justify-center hero-bg bg-gradient-to-br from-blue-900 to-blue-700 text-white">
@@ -689,8 +681,8 @@
   <section id="about" class="py-24 relative">
     <div id="about-particles"></div>
     <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
-      <h2 class="text-5xl font-extrabold mb-12 fade-in text-blue-900 drop-shadow-lg">Tentang Saya</h2>
-      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto text-gray-800">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in drop-shadow-lg">Tentang Saya</h2>
+      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto">
         Saya Muhammad Ibnu Fauzi, seorang mahasiswa D4 Teknik Informatika di Politeknik Negeri Jakarta. 
         Saya bersemangat dalam mengembangkan aplikasi web dan mengeksplorasi teknologi baru. 
         Selain itu, saya juga memiliki pengalaman sebagai penulis lepas yang membantu saya mengasah keterampilan komunikasi.
@@ -724,7 +716,7 @@
         <div class="fade-in rounded-xl shadow-lg card-hover">
           <div class="card-inner">
             <div class="card-front">
-              <h3 class="text-2xl font-semibold text-blue-900">Politeknik Negeri Jakarta</h3>
+              <h3 class="text-2xl font-semibold">Politeknik Negeri Jakarta</h3>
               <p class="text-yellow-400 font-medium text-lg">2023 - Sekarang</p>
             </div>
             <div class="card-back">
@@ -735,7 +727,7 @@
         <div class="fade-in rounded-xl shadow-lg card-hover">
           <div class="card-inner">
             <div class="card-front">
-              <h3 class="text-2xl font-semibold text-blue-900">SMAN 04 Cileungsi</h3>
+              <h3 class="text-2xl font-semibold">SMAN 04 Cileungsi</h3>
               <p class="text-yellow-400 font-medium text-lg">2020 - 2023</p>
             </div>
             <div class="card-back">
@@ -746,7 +738,7 @@
         <div class="fade-in rounded-xl shadow-lg card-hover">
           <div class="card-inner">
             <div class="card-front">
-              <h3 class="text-2xl font-semibold text-blue-900">SMPN 04 Cileungsi</h3>
+              <h3 class="text-2xl font-semibold">SMPN 04 Cileungsi</h3>
               <p class="text-yellow-400 font-medium text-lg">2018 - 2020</p>
             </div>
             <div class="card-back">
@@ -757,7 +749,7 @@
         <div class="fade-in rounded-xl shadow-lg card-hover">
           <div class="card-inner">
             <div class="card-front">
-              <h3 class="text-2xl font-semibold text-blue-900">SDN Nyalindung</h3>
+              <h3 class="text-2xl font-semibold">SDN Nyalindung</h3>
               <p class="text-yellow-400 font-medium text-lg">2011 - 2017</p>
             </div>
             <div class="card-back">
@@ -773,7 +765,7 @@
   <section id="biodata" class="py-24 relative">
     <div id="biodata-particles"></div>
     <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
-      <h2 class="text-5xl font-extrabold mb-12 fade-in text-blue-900 drop-shadow-lg">Biodata</h2>
+      <h2 class="text-5xl font-extrabold mb-12 fade-in drop-shadow-lg">Biodata</h2>
       <div class="biodata-card fade-in">
         <div class="p-6">
           <div class="biodata-item">
@@ -827,8 +819,8 @@
   <section id="favorites" class="py-24 relative">
     <div id="favorites-particles"></div>
     <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
-      <h2 class="text-5xl font-extrabold mb-12 fade-in text-blue-900 drop-shadow-lg">My Favorites</h2>
-      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto text-gray-800">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in drop-shadow-lg">My Favorites</h2>
+      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto">
         Temukan dunia saya melalui lagu dan film favorit yang menginspirasi dan menghibur!
       </p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -862,8 +854,8 @@
   <section id="contact" class="py-24 relative">
     <div id="contact-particles"></div>
     <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
-      <h2 class="text-5xl font-extrabold mb-12 fade-in text-blue-900 drop-shadow-lg">Hubungi Saya</h2>
-      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto text-gray-800">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in drop-shadow-lg">Hubungi Saya</h2>
+      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto">
         Tertarik untuk berkolaborasi atau ingin mengobrol tentang apapun? Silakan hubungi saya melalui kontak di bawah ini!
       </p>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -892,7 +884,7 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-blue-900 text-white py-8">
+  <footer class="py-8">
     <div class="max-w-7xl mx-auto px-4 text-center">
       <p>© 2025 Muhammad Ibnu Fauzi. All rights reserved.</p>
     </div>
@@ -1042,7 +1034,7 @@
       setInterval(createThankyouParticle, 250);
     }
 
-    // Navbar warna dinamis
+    // Navbar warna dinamis (only on desktop)
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = [
       { id: 'home', color: '#facc15' },
@@ -1078,91 +1070,51 @@
       });
     }
 
-    // Navbar menyusut dan muncul saat scroll
+    // Navbar menyusut dan muncul saat scroll (only on desktop)
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('visible');
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('visible');
-        navbar.classList.remove('scrolled');
-      }
-      updateActiveLink();
-    });
-
-    // Hamburger menu toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const navOverlay = document.querySelector('.nav-overlay');
-
-    function toggleMenu() {
-      hamburger.classList.toggle('active');
-      navMenu.classList.toggle('active');
-      navOverlay.classList.toggle('active');
-      // Disable scroll when menu is open
-      if (navMenu.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
-    }
-
-    hamburger.addEventListener('click', toggleMenu);
-
-    // Tutup menu saat link diklik di mobile
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        navOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-    });
-
-    // Tutup menu saat klik di luar (overlay)
-    navOverlay.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navMenu.classList.remove('active');
-      navOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-
-    // Deteksi swipe untuk menutup menu
-    let touchStartY = 0;
-    let touchEndY = 0;
-
-    document.addEventListener('touchstart', (e) => {
-      touchStartY = e.changedTouches[0].screenY;
-    });
-
-    document.addEventListener('touchend', (e) => {
-      touchEndY = e.changedTouches[0].screenY;
-      handleSwipe();
-    });
-
-    function handleSwipe() {
-      const swipeDistance = touchEndY - touchStartY;
-      // Jika swipe ke bawah (positif) dan menu terbuka, tutup menu
-      if (swipeDistance > 50 && navMenu.classList.contains('active')) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        navOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    }
-
-    // Tutup menu saat scroll jika terbuka
-    window.addEventListener('scroll', () => {
-      if (navMenu.classList.contains('active')) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        navOverlay.classList.remove('active');
-        document.body.style.overflow = '';
+      if (window.innerWidth > 768) {
+        if (window.scrollY > 50) {
+          navbar.classList.add('visible');
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('visible');
+          navbar.classList.remove('scrolled');
+        }
+        updateActiveLink();
       }
     });
 
     window.addEventListener('load', updateActiveLink);
+
+    // Theme Toggle Functionality
+    function toggleTheme() {
+      const body = document.body;
+      const themeIcon = document.getElementById('theme-icon');
+      body.classList.toggle('dark-theme');
+      
+      // Update icon
+      if (body.classList.contains('dark-theme')) {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Load theme from localStorage
+    window.addEventListener('load', () => {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('theme-icon');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      }
+    });
   </script>
 </body>
 </html>
