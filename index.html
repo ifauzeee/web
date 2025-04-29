@@ -131,6 +131,7 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
+      z-index: 30;
     }
     .hamburger div {
       width: 25px;
@@ -141,21 +142,42 @@
     .nav-menu {
       transition: all 0.3s ease;
     }
+    /* Overlay untuk mobile menu saat aktif */
+    .nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .nav-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
     @media (max-width: 768px) {
       .hamburger {
         display: flex;
       }
       .nav-menu {
         display: none;
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         left: 0;
         width: 100%;
+        height: 100%;
         background: rgba(255, 255, 255, 0.95);
         flex-direction: column;
-        padding: 1rem 0; /* Consistent padding for mobile menu */
+        padding: 5rem 1rem 1rem 1rem; /* Adjusted padding to account for navbar height */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        text-align: center; /* Center-align menu items */
+        z-index: 20;
+        overflow-y: auto;
+        justify-content: flex-start;
+        align-items: center;
       }
       .nav-menu.active {
         display: flex;
@@ -171,18 +193,23 @@
       }
       /* Synchronize menu item layout on mobile */
       .nav-menu .nav-link {
-        font-size: 1rem;
-        padding: 0.75rem 0; /* Consistent padding for each item */
-        margin: 0; /* Remove any extra margins */
-        width: 100%; /* Ensure full width for uniformity */
-        justify-content: center; /* Center the text and icon */
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Add a subtle separator */
+        font-size: 1.25rem;
+        padding: 1rem 0; /* Increased padding for better touch area */
+        margin: 0;
+        width: 100%;
+        max-width: 300px; /* Limit width for better alignment */
+        justify-content: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        transition: background 0.3s ease;
+      }
+      .nav-menu .nav-link:hover {
+        background: rgba(250, 204, 21, 0.1);
       }
       .nav-menu .nav-link:last-child {
-        border-bottom: none; /* Remove separator for the last item */
+        border-bottom: none;
       }
       .nav-menu .nav-link i {
-        margin-right: 0.5rem; /* Consistent spacing between icon and text */
+        margin-right: 0.75rem; /* Slightly increased spacing for better visuals */
       }
     }
     /* Efek paralaks untuk hero */
@@ -645,6 +672,9 @@
     </div>
   </nav>
 
+  <!-- Overlay untuk mobile menu -->
+  <div class="nav-overlay"></div>
+
   <!-- Hero Section -->
   <section id="home" class="min-h-screen flex items-center justify-center hero-bg bg-gradient-to-br from-blue-900 to-blue-700 text-white">
     <div id="hero-particles"></div>
@@ -705,7 +735,7 @@
         <div class="fade-in rounded-xl shadow-lg card-hover">
           <div class="card-inner">
             <div class="card-front">
-              <h3 class="text-2xl font-semibold text-blue-900">SMAN 02 Cileungsi</h3>
+              <h3 class="text-2xl font-semibold text-blue-900">SMAN 04 Cileungsi</h3>
               <p class="text-yellow-400 font-medium text-lg">2020 - 2023</p>
             </div>
             <div class="card-back">
@@ -786,7 +816,7 @@
               <i class="fas fa-quote-left"></i>
               <span>Motto:</span>
             </div>
-            <div class="biodata-value">"Stop Judol."</div>
+            <div class="biodata-value">"NO TIME TO DIE."</div>
           </div>
         </div>
       </div>
@@ -861,7 +891,7 @@
     </div>
   </section>
 
-  <!-- Footer (Moved Below Thank You Section) -->
+  <!-- Footer -->
   <footer class="bg-blue-900 text-white py-8">
     <div class="max-w-7xl mx-auto px-4 text-center">
       <p>© 2025 Muhammad Ibnu Fauzi. All rights reserved.</p>
@@ -906,7 +936,7 @@
       particlesContainer.appendChild(particle);
       setTimeout(() => particle.remove(), 15000);
     }
-    if (window.innerWidth > 768) { // Only create particles on larger screens
+    if (window.innerWidth > 768) {
       setInterval(createParticle, 300);
     }
 
@@ -1064,17 +1094,72 @@
     // Hamburger menu toggle
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
-    hamburger.addEventListener('click', () => {
+    const navOverlay = document.querySelector('.nav-overlay');
+
+    function toggleMenu() {
       hamburger.classList.toggle('active');
       navMenu.classList.toggle('active');
-    });
+      navOverlay.classList.toggle('active');
+      // Disable scroll when menu is open
+      if (navMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
 
     // Tutup menu saat link diklik di mobile
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
+        navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
       });
+    });
+
+    // Tutup menu saat klik di luar (overlay)
+    navOverlay.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('active');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    // Deteksi swipe untuk menutup menu
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartY = e.changedTouches[0].screenY;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndY = e.changedTouches[0].screenY;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeDistance = touchEndY - touchStartY;
+      // Jika swipe ke bawah (positif) dan menu terbuka, tutup menu
+      if (swipeDistance > 50 && navMenu.classList.contains('active')) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Tutup menu saat scroll jika terbuka
+    window.addEventListener('scroll', () => {
+      if (navMenu.classList.contains('active')) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     });
 
     window.addEventListener('load', updateActiveLink);
