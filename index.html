@@ -8,53 +8,10 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Default Light Theme */
-    :root {
-      --bg-color: #f5f5f5;
-      --text-color: #1e3a8a;
-      --card-bg: rgba(255, 255, 255, 0.95);
-      --card-text: #4b5563;
-      --accent-color: #facc15;
-      --navbar-bg: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
-      --footer-bg: #1e3a8a;
-      --footer-text: #ffffff;
-    }
-
-    /* Dark AMOLED Black Theme */
-    body.dark-theme {
-      --bg-color: #000000;
-      --text-color: #ffffff;
-      --card-bg: rgba(30, 30, 30, 0.95);
-      --card-text: #d1d5db;
-      --accent-color: #facc15;
-      --navbar-bg: linear-gradient(90deg, rgba(20, 20, 20, 0.95), rgba(20, 20, 20, 0.85));
-      --footer-bg: #111111;
-      --footer-text: #d1d5db;
-    }
-
     body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      transition: background-color 0.3s ease, color 0.3s ease;
+      background-color: #f5f5f5;
+      color: #1e3a8a;
     }
-
-    /* Theme Toggle Button */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 30;
-      background: var(--accent-color);
-      color: var(--text-color);
-      padding: 0.5rem;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    .theme-toggle:hover {
-      background: #eab308;
-    }
-
     /* Animasi untuk transisi halus */
     .fade-in {
       opacity: 0;
@@ -110,16 +67,16 @@
       align-items: center;
       padding: 1rem;
       border-radius: 1rem;
-      background: var(--card-bg);
+      background: rgba(255, 255, 255, 0.95);
     }
     .card-back {
       transform: rotateY(180deg);
-      background: var(--accent-color);
-      color: var(--text-color);
+      background: #facc15;
+      color: #1e3a8a;
     }
     /* Navbar keren */
     .navbar {
-      background: var(--navbar-bg);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
       backdrop-filter: blur(10px);
       transition: padding 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
       position: fixed;
@@ -145,7 +102,7 @@
       --underline-color: #ffffff;
     }
     .nav-link:hover {
-      color: var(--accent-color);
+      color: #facc15;
       transform: scale(1.2);
       box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
     }
@@ -172,10 +129,7 @@
     .nav-link:hover i {
       transform: rotate(10deg);
     }
-    /* Hide hamburger and mobile menu */
-    .hamburger {
-      display: none;
-    }
+    /* Hide navbar on mobile */
     @media (max-width: 768px) {
       .navbar {
         display: none; /* Hide navbar completely on mobile */
@@ -222,9 +176,6 @@
       position: relative;
       overflow: hidden;
     }
-    body.dark-theme #education {
-      background: linear-gradient(135deg, #0a1a4a 0%, #1a3b7a 100%);
-    }
     /* Efek partikel untuk pendidikan */
     #particles {
       position: absolute;
@@ -252,9 +203,6 @@
       position: relative;
       overflow: hidden;
     }
-    body.dark-theme #about {
-      background: linear-gradient(135deg, #1a3b2a 0%, #0a3b2a 100%);
-    }
     #about-particles {
       position: absolute;
       top: 0;
@@ -277,7 +225,7 @@
     }
     .about-card {
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      background: var(--card-bg);
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 1rem;
       overflow: hidden;
       position: relative;
@@ -290,15 +238,15 @@
     .about-card h3 {
       font-size: 1.5rem;
       font-weight: 600;
-      color: var(--text-color);
+      color: #1e3a8a;
       margin-bottom: 0.5rem;
     }
     .about-card p {
-      color: var(--card-text);
+      color: #4b5563;
       line-height: 1.6;
     }
     .about-card i {
-      color: var(--accent-color);
+      color: #facc15;
       font-size: 2rem;
       margin-bottom: 1rem;
     }
@@ -307,9 +255,6 @@
       background: linear-gradient(135deg, #e0e7ff 0%, #818cf8 100%);
       position: relative;
       overflow: hidden;
-    }
-    body.dark-theme #biodata {
-      background: linear-gradient(135deg, #2a2a5a 0%, #3a3a7a 100%);
     }
     #biodata-particles {
       position: absolute;
@@ -334,7 +279,7 @@
     .biodata-card {
       max-width: 600px;
       margin: 0 auto;
-      background: var(--card-bg);
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 1.5rem;
       border: 1px solid rgba(0, 0, 0, 0.05);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -359,13 +304,13 @@
       align-items: center;
       gap: 0.5rem;
       font-weight: 600;
-      color: var(--text-color);
+      color: #1e3a8a;
     }
     .biodata-value {
-      color: var(--card-text);
+      color: #4b5563;
     }
     .biodata-item i {
-      color: var(--accent-color);
+      color: #facc15;
       font-size: 1.5rem;
     }
     /* Styling untuk Contact */
@@ -373,9 +318,6 @@
       background: linear-gradient(135deg, #fce7f3 0%, #ec4899 100%);
       position: relative;
       overflow: hidden;
-    }
-    body.dark-theme #contact {
-      background: linear-gradient(135deg, #4a1a3a 0%, #5a2a4a 100%);
     }
     #contact-particles {
       position: absolute;
@@ -399,7 +341,7 @@
     }
     .contact-card {
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      background: var(--card-bg);
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 1rem;
       overflow: hidden;
       position: relative;
@@ -413,11 +355,11 @@
     .contact-card h3 {
       font-size: 1.5rem;
       font-weight: 600;
-      color: var(--text-color);
+      color: #1e3a8a;
       margin-bottom: 0.5rem;
     }
     .contact-card i {
-      color: var(--accent-color);
+      color: #facc15;
       font-size: 2rem;
       margin-bottom: 1rem;
     }
@@ -443,16 +385,13 @@
     }
     .social-icon:hover {
       transform: scale(1.3) rotate(360deg);
-      color: var(--accent-color);
+      color: #facc15;
     }
     /* Styling untuk My Favorites */
     #favorites {
       background: linear-gradient(135deg, #fef3c7 0%, #facc15 100%);
       position: relative;
       overflow: hidden;
-    }
-    body.dark-theme #favorites {
-      background: linear-gradient(135deg, #4a3a1a 0%, #5a4a2a 100%);
     }
     #favorites-particles {
       position: absolute;
@@ -476,7 +415,7 @@
     }
     .favorite-card {
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      background: var(--card-bg);
+      background: rgba(255, 255, 251, 0.95);
       border-radius: 1rem;
       overflow: hidden;
       position: relative;
@@ -496,21 +435,21 @@
     .favorite-card h3 {
       font-size: 1.5rem;
       font-weight: 600;
-      color: var(--text-color);
+      color: #1e3a8a;
       margin-bottom: 0.5rem;
     }
     .favorite-card p {
-      color: var(--card-text);
+      color: #4b5563;
       line-height: 1.6;
     }
     .favorite-card i {
-      color: var(--accent-color);
+      color: #facc15;
       font-size: 2rem;
       margin-bottom: 1rem;
     }
     /* Styling untuk Thank You Section */
     #thankyou {
-      background-color: var(--bg-color);
+      background-color: #f5f5f5;
       min-height: 50vh;
       display: flex;
       align-items: center;
@@ -543,15 +482,15 @@
     .thankyou-text {
       font-family: 'Dancing Script', cursive;
       font-size: 3.5rem;
-      color: var(--text-color);
+      color: #1e3a8a;
       font-weight: 700;
       line-height: 1.2;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
     /* Footer */
     footer {
-      background: var(--footer-bg);
-      color: var(--footer-text);
+      background: #1e3a8a;
+      color: #ffffff;
     }
     /* Responsive Design Adjustments Using Media Queries */
     @media (max-width: 768px) {
@@ -661,11 +600,6 @@
       </div>
     </div>
   </nav>
-
-  <!-- Theme Toggle Button -->
-  <div class="theme-toggle" onclick="toggleTheme()">
-    <i id="theme-icon" class="fas fa-moon"></i>
-  </div>
 
   <!-- Hero Section -->
   <section id="home" class="min-h-screen flex items-center justify-center hero-bg bg-gradient-to-br from-blue-900 to-blue-700 text-white">
@@ -1086,35 +1020,6 @@
     });
 
     window.addEventListener('load', updateActiveLink);
-
-    // Theme Toggle Functionality
-    function toggleTheme() {
-      const body = document.body;
-      const themeIcon = document.getElementById('theme-icon');
-      body.classList.toggle('dark-theme');
-      
-      // Update icon
-      if (body.classList.contains('dark-theme')) {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-        localStorage.setItem('theme', 'light');
-      }
-    }
-
-    // Load theme from localStorage
-    window.addEventListener('load', () => {
-      const savedTheme = localStorage.getItem('theme');
-      const themeIcon = document.getElementById('theme-icon');
-      if (savedTheme === 'dark') {
-        document.body.classList.add('dark-theme');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-      }
-    });
   </script>
 </body>
 </html>
