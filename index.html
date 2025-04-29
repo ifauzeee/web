@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muhammad Ibnu Fauzi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Animasi untuk transisi halus */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Animasi untuk hover button */
+    .btn-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+    .btn-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    /* Animasi hover untuk kartu pendidikan */
+    .card-hover {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      perspective: 1000px;
+      height: 150px; /* Tinggi tetap untuk kartu */
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+    .card-inner {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+      width: 100%;
+      height: 100%;
+    }
+    .card-hover:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      backface-visibility: hidden;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .card-back {
+      transform: rotateY(180deg);
+      background: #facc15;
+      color: #1e3a8a;
+    }
+    /* Navbar keren */
+    .navbar {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+      backdrop-filter: blur(10px);
+      transition: padding 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
+      position: fixed;
+      width: 100%;
+      z-index: 20;
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    .navbar.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .navbar.scrolled {
+      padding: 0.5rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .nav-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      --underline-color: #ffffff;
+    }
+    .nav-link:hover {
+      color: #facc15;
+      transform: scale(1.2);
+      box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--underline-color);
+      transition: width 0.3s ease-in-out;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .nav-link.active::after {
+      width: 100%;
+    }
+    .nav-link i {
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+    }
+    .nav-link:hover i {
+      transform: rotate(10deg);
+    }
+    /* Hamburger menu untuk mobile */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: #1e3a8a;
+      transition: all 0.3s ease;
+    }
+    .nav-menu {
+      transition: all 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+      .hamburger.active div:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active div:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+      }
+    }
+    /* Efek paralaks untuk hero */
+    .hero-bg {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Partikel untuk hero */
+    #hero-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: float-hero 10s infinite;
+    }
+    @keyframes float-hero {
+      0% { transform: translateY(0) translateX(0); opacity: 0.8; }
+      50% { opacity: 0.5; transform: translateY(-30vh) translateX(10vw); }
+      100% { transform: translateY(-60vh) translateX(-10vw); opacity: 0; }
+    }
+    /* Latar belakang gradien untuk pendidikan */
+    #education {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Efek partikel untuk pendidikan */
+    #particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .particle {
+      position: absolute;
+      background: rgba(250, 204, 21, 0.5);
+      border-radius: 50%;
+      animation: float 15s infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 0.8; }
+      50% { opacity: 0.3; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+    /* Styling untuk About */
+    #about {
+      background: linear-gradient(135deg, #d1fae5 0%, #10b981 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #about-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .about-particle {
+      position: absolute;
+      background: rgba(30, 58, 138, 0.5);
+      border-radius: 50%;
+      animation: float-about 12s infinite;
+    }
+    @keyframes float-about {
+      0% { transform: translateY(0) translateX(0); opacity: 0.7; }
+      50% { opacity: 0.4; transform: translateY(-20vh) translateX(5vw); }
+      100% { transform: translateY(-50vh) translateX(-5vw); opacity: 0; }
+    }
+    .about-card {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1rem;
+      overflow: hidden;
+      position: relative;
+      padding: 1.5rem;
+    }
+    .about-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+    .about-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      margin-bottom: 0.5rem;
+    }
+    .about-card p {
+      color: #4b5563;
+      line-height: 1.6;
+    }
+    .about-card i {
+      color: #facc15;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    /* Styling untuk Biodata */
+    #biodata {
+      background: linear-gradient(135deg, #e0e7ff 0%, #818cf8 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #biodata-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .biodata-particle {
+      position: absolute;
+      background: rgba(250, 204, 21, 0.5);
+      border-radius: 50%;
+      animation: float-biodata 12s infinite;
+    }
+    @keyframes float-biodata {
+      0% { transform: translateY(0) translateX(0); opacity: 0.7; }
+      50% { opacity: 0.4; transform: translateY(-20vh) translateX(5vw); }
+      100% { transform: translateY(-50vh) translateX(-5vw); opacity: 0; }
+    }
+    .biodata-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .biodata-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+    .biodata-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .biodata-item:last-child {
+      border-bottom: none;
+    }
+    .biodata-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: #1e3a8a;
+    }
+    .biodata-value {
+      color: #4b5563;
+    }
+    .biodata-item i {
+      color: #facc15;
+      font-size: 1.5rem;
+    }
+    /* Styling untuk Contact */
+    #contact {
+      background: linear-gradient(135deg, #fce7f3 0%, #ec4899 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #contact-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .contact-particle {
+      position: absolute;
+      background: rgba(30, 58, 138, 0.5);
+      border-radius: 50%;
+      animation: float-contact 12s infinite;
+    }
+    @keyframes float-contact {
+      0% { transform: translateY(0) translateX(0); opacity: 0.7; }
+      50% { opacity: 0.4; transform: translateY(-20vh) translateX(5vw); }
+      100% { transform: translateY(-50vh) translateX(-5vw); opacity: 0; }
+    }
+    .contact-card {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1rem;
+      overflow: hidden;
+      position: relative;
+      padding: 1.5rem;
+      cursor: pointer;
+    }
+    .contact-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+    .contact-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      margin-bottom: 0.5rem;
+    }
+    .contact-card i {
+      color: #facc15;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    /* Animasi ketik untuk hero */
+    .typing {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 4px solid white;
+      animation: typing 3s steps(30, end) forwards, blink 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: white; }
+    }
+    /* Animasi ikon sosial media */
+    .social-icon {
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .social-icon:hover {
+      transform: scale(1.3) rotate(360deg);
+      color: #facc15;
+    }
+    /* Styling untuk My Favorites */
+    #favorites {
+      background: linear-gradient(135deg, #fef3c7 0%, #facc15 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #favorites-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .favorite-particle {
+      position: absolute;
+      background: rgba(30, 58, 138, 0.5);
+      border-radius: 50%;
+      animation: float-favorite 12s infinite;
+    }
+    @keyframes float-favorite {
+      0% { transform: translateY(0) translateX(0); opacity: 0.7; }
+      50% { opacity: 0.4; transform: translateY(-20vh) translateX(5vw); }
+      100% { transform: translateY(-50vh) translateX(-5vw); opacity: 0; }
+    }
+    .favorite-card {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      background: rgba(255, 255, 251, 0.95);
+      border-radius: 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .favorite-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+    .favorite-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .favorite-card .content {
+      padding: 1.5rem;
+    }
+    .favorite-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      margin-bottom: 0.5rem;
+    }
+    .favorite-card p {
+      color: #4b5563;
+      line-height: 1.6;
+    }
+    .favorite-card i {
+      color: #facc15;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+  <!-- Navbar -->
+  <nav class="navbar fixed w-full z-20">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div></div> <!-- Placeholder kosong -->
+      <div class="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="nav-menu flex space-x-8">
+        <a href="#home" class="nav-link text-lg text-blue-900" data-section="home"><i class="fas fa-home"></i>Home</a>
+        <a href="#about" class="nav-link text-lg text-blue-900" data-section="about"><i class="fas fa-user"></i>About</a>
+        <a href="#education" class="nav-link text-lg text-blue-900" data-section="education"><i class="fas fa-graduation-cap"></i>Pendidikan</a>
+        <a href="#biodata" class="nav-link text-lg text-blue-900" data-section="biodata"><i class="fas fa-id-card"></i>Biodata</a>
+        <a href="#favorites" class="nav-link text-lg text-blue-900" data-section="favorites"><i class="fas fa-heart"></i>Favorites</a>
+        <a href="#contact" class="nav-link text-lg text-blue-900" data-section="contact"><i class="fas fa-envelope"></i>Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center hero-bg bg-gradient-to-br from-blue-900 to-blue-700 text-white">
+    <div id="hero-particles"></div>
+    <div class="text-center fade-in relative z-10">
+      <h2 class="text-6xl font-extrabold mb-4 tracking-tight typing">Muhammad Ibnu Fauzi</h2>
+      <p class="text-2xl mb-6 font-light">Mahasiswa Teknik Informatika</p>
+      <a href="#about" class="bg-yellow-400 text-blue-900 px-8 py-3 rounded-full font-semibold btn-hover">Kenali Saya</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-24 relative">
+    <div id="about-particles"></div>
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in text-blue-900 drop-shadow-lg">Tentang Saya</h2>
+      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto text-gray-800">
+        Saya Muhammad Ibnu Fauzi, seorang mahasiswa D4 Teknik Informatika di Politeknik Negeri Jakarta. 
+        Saya bersemangat dalam mengembangkan aplikasi web dan mengeksplorasi teknologi baru. 
+        Selain itu, saya juga memiliki pengalaman sebagai penulis lepas yang membantu saya mengasah keterampilan komunikasi.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="about-card fade-in">
+          <i class="fas fa-code"></i>
+          <h3>Keterampilan</h3>
+          <p>HTML, CSS, JavaScript</p>
+        </div>
+        <div class="about-card fade-in">
+          <i class="fas fa-briefcase"></i>
+          <h3>Pengalaman</h3>
+          <p>Freelance Writing Jobs</p>
+        </div>
+        <div class="about-card fade-in">
+          <i class="fas fa-graduation-cap"></i>
+          <h3>Pendidikan</h3>
+          <p>D4 Teknik Informatika, Politeknik Negeri Jakarta</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="py-24 min-h-screen relative">
+    <div id="particles"></div>
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in text-white drop-shadow-lg">Riwayat Pendidikan</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div class="fade-in rounded-xl shadow-lg card-hover">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3 class="text-2xl font-semibold text-blue-900">Politeknik Negeri Jakarta</h3>
+              <p class="text-yellow-400 font-medium text-lg">2023 - Sekarang</p>
+            </div>
+            <div class="card-back">
+              <p class="text-lg">D4 Teknik Informatika</p>
+            </div>
+          </div>
+        </div>
+        <div class="fade-in rounded-xl shadow-lg card-hover">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3 class="text-2xl font-semibold text-blue-900">SMAN 04 Cileungsi</h3>
+              <p class="text-yellow-400 font-medium text-lg">2020 - 2023</p>
+            </div>
+            <div class="card-back">
+              <p class="text-lg">Jurusan IPA</p>
+            </div>
+          </div>
+        </div>
+        <div class="fade-in rounded-xl shadow-lg card-hover">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3 class="text-2xl font-semibold text-blue-900">SMPN 04 Cileungsi</h3>
+              <p class="text-yellow-400 font-medium text-lg">2018 - 2020</p>
+            </div>
+            <div class="card-back">
+              <p class="text-lg">Pendidikan Menengah</p>
+            </div>
+          </div>
+        </div>
+        <div class="fade-in rounded-xl shadow-lg card-hover">
+          <div class="card-inner">
+            <div class="card-front">
+              <h3 class="text-2xl font-semibold text-blue-900">SDN Nyalindung</h3>
+              <p class="text-yellow-400 font-medium text-lg">2011 - 2017</p>
+            </div>
+            <div class="card-back">
+              <p class="text-lg">Pendidikan Dasar</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Biodata Section -->
+  <section id="biodata" class="py-24 relative">
+    <div id="biodata-particles"></div>
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in text-blue-900 drop-shadow-lg">Biodata</h2>
+      <div class="biodata-card fade-in">
+        <div class="p-6">
+          <div class="biodata-item">
+            <div class="biodata-label">
+              <i class="fas fa-user"></i>
+              <span>Nama:</span>
+            </div>
+            <div class="biodata-value">Muhammad Ibnu Fauzi</div>
+          </div>
+          <div class="biodata-item">
+            <div class="biodata-label">
+              <i class="fas fa-star"></i>
+              <span>Zodiak:</span>
+            </div>
+            <div class="biodata-value">Virgo</div>
+          </div>
+          <div class="biodata-item">
+            <div class="biodata-label">
+              <i class="fas fa-birthday-cake"></i>
+              <span>Umur:</span>
+            </div>
+            <div class="biodata-value">20</div>
+          </div>
+          <div class="biodata-item">
+            <div class="biodata-label">
+              <i class="fas fa-pray"></i>
+              <span>Agama:</span>
+            </div>
+            <div class="biodata-value">Islam</div>
+          </div>
+          <div class="biodata-item">
+            <div class="biodata-label">
+              <i class="fas fa-heart"></i>
+              <span>Hobi:</span>
+            </div>
+            <div class="biodata-value">Membantu Orang Tua</div>
+          </div>
+          <div class="biodata-item">
+            <div class="biodata-label">
+              <i class="fas fa-quote-left"></i>
+              <span>Motto:</span>
+            </div>
+            <div class="biodata-value">"Stop Judol!."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- My Favorites Section -->
+  <section id="favorites" class="py-24 relative">
+    <div id="favorites-particles"></div>
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in text-blue-900 drop-shadow-lg">My Favorites</h2>
+      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto text-gray-800">
+        Temukan dunia saya melalui lagu dan film favorit yang menginspirasi dan menghibur!
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div class="favorite-card fade-in">
+          <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Favorite Song">
+          <div class="content">
+            <i class="fas fa-music"></i>
+            <h3>Favorite Song: "About You" - The 1975</h3>
+            <p>
+              Lagu dari The 1975 ini seperti perjalanan emosional yang penuh nostalgia. 
+              Melodinya yang dreamy dan liriknya yang penuh makna selalu membawa saya ke momen-momen spesial.
+            </p>
+          </div>
+        </div>
+        <div class="favorite-card fade-in">
+          <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Favorite Movie">
+          <div class="content">
+            <i class="fas fa-film"></i>
+            <h3>Favorite Movie: "Inception"</h3>
+            <p>
+              Film karya Christopher Nolan ini mengguncang pikiran dengan dunia mimpi yang kompleks dan visual yang memukau. 
+              Ceritanya mengajak saya untuk terus berpikir dan menjelajahi batas realitas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-24 relative">
+    <div id="contact-particles"></div>
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in text-blue-900 drop-shadow-lg">Hubungi Saya</h2>
+      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto text-gray-800">
+        Tertarik untuk berkolaborasi atau ingin mengobrol tentang apapun? Silakan hubungi saya melalui kontak di bawah ini!
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <a href="mailto:ifauze343@gmail.com" class="contact-card fade-in">
+          <i class="fas fa-envelope"></i>
+          <h3>Email</h3>
+        </a>
+        <a href="https://www.instagram.com/_mhmmdibnu_/" class="contact-card fade-in">
+          <i class="fab fa-instagram"></i>
+          <h3>Instagram</h3>
+        </a>
+        <a href="https://t.me/ifauzeee" class="contact-card fade-in">
+          <i class="fab fa-telegram"></i>
+          <h3>Telegram</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-blue-900 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p>© 2025 Muhammad Ibnu Fauzi. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript untuk animasi, partikel, dan navbar dinamis -->
+  <script>
+    // Animasi fade-in saat scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+    fadeElements.forEach(el => observer.observe(el));
+
+    // Smooth scroll untuk link navbar
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Efek partikel untuk pendidikan
+    const particlesContainer = document.getElementById('particles');
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.width = `${Math.random() * 8 + 4}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+      particlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 15000);
+    }
+    setInterval(createParticle, 300);
+
+    // Efek partikel untuk hero
+    const heroParticlesContainer = document.getElementById('hero-particles');
+    function createHeroParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('hero-particle');
+      particle.style.width = `${Math.random() * 6 + 3}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+      heroParticlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 10000);
+    }
+    setInterval(createHeroParticle, 200);
+
+    // Efek partikel untuk about
+    const aboutParticlesContainer = document.getElementById('about-particles');
+    function createAboutParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('about-particle');
+      particle.style.width = `${Math.random() * 7 + 3}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+      aboutParticlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 12000);
+    }
+    setInterval(createAboutParticle, 250);
+
+    // Efek partikel untuk biodata
+    const biodataParticlesContainer = document.getElementById('biodata-particles');
+    function createBiodataParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('biodata-particle');
+      particle.style.width = `${Math.random() * 7 + 3}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+      biodataParticlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 12000);
+    }
+    setInterval(createBiodataParticle, 250);
+
+    // Efek partikel untuk favorites
+    const favoritesParticlesContainer = document.getElementById('favorites-particles');
+    function createFavoriteParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('favorite-particle');
+      particle.style.width = `${Math.random() * 7 + 3}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+      favoritesParticlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 12000);
+    }
+    setInterval(createFavoriteParticle, 250);
+
+    // Efek partikel untuk contact
+    const contactParticlesContainer = document.getElementById('contact-particles');
+    function createContactParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('contact-particle');
+      particle.style.width = `${Math.random() * 7 + 3}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+      contactParticlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 12000);
+    }
+    setInterval(createContactParticle, 250);
+
+    // Navbar warna dinamis
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = [
+      { id: 'home', color: '#facc15' },
+      { id: 'about', color: '#10b981' },
+      { id: 'education', color: '#facc15' },
+      { id: 'biodata', color: '#818cf8' },
+      { id: 'favorites', color: '#1e3a8a' },
+      { id: 'contact', color: '#ec4899' }
+    ];
+
+    function updateActiveLink() {
+      let currentSection = '';
+      sections.forEach(section => {
+        const element = document.getElementById(section.id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            currentSection = section.id;
+          }
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        const sectionId = link.getAttribute('data-section');
+        if (sectionId === currentSection) {
+          link.classList.add('active');
+          const color = sections.find(s => s.id === currentSection)?.color || '#ffffff';
+          link.style.setProperty('--underline-color', color);
+        } else {
+          link.style.setProperty('--underline-color', '#ffffff');
+        }
+      });
+    }
+
+    // Navbar menyusut dan muncul saat scroll
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('visible');
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('visible');
+        navbar.classList.remove('scrolled');
+      }
+      updateActiveLink();
+    });
+
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    // Tutup menu saat link diklik di mobile
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+
+    window.addEventListener('load', updateActiveLink);
+  </script>
+</body>
+</html>
