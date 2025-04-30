@@ -40,7 +40,7 @@
     .card-hover {
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       perspective: 1000px;
-      height: 150px; /* Tinggi tetap untuk kartu */
+      height: 150px;
     }
     .card-hover:hover {
       transform: translateY(-5px);
@@ -95,8 +95,8 @@
     }
     .nav-menu {
       display: flex;
-      justify-content: center; /* Center the menu items horizontally */
-      gap: 2rem; /* Adjust spacing between menu items */
+      justify-content: center;
+      gap: 2rem;
     }
     .nav-link {
       position: relative;
@@ -137,7 +137,7 @@
     /* Hide navbar on mobile */
     @media (max-width: 768px) {
       .navbar {
-        display: none; /* Hide navbar completely on mobile */
+        display: none;
       }
     }
     /* Efek paralaks untuk hero */
@@ -311,6 +311,32 @@
     .biodata-item i {
       color: #facc15;
       font-size: 1.5rem;
+    }
+    /* Styling untuk My Projects */
+    #projects {
+      background: linear-gradient(135deg, #e0f2fe 0%, #0ea5e9 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #projects-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .project-particle {
+      position: absolute;
+      background: rgba(250, 204, 21, 0.5);
+      border-radius: 50%;
+      animation: float-project 12s infinite;
+    }
+    @keyframes float-project {
+      0% { transform: translateY(0) translateX(0); opacity: 0.7; }
+      50% { opacity: 0.4; transform: translateY(-20vh) translateX(5vw); }
+      100% { transform: translateY(-50vh) translateX(-5vw); opacity: 0; }
     }
     /* Styling untuk Contact */
     #contact {
@@ -627,73 +653,73 @@
     @media (max-width: 768px) {
       /* Hero Section: Adjust font sizes and padding for mobile */
       #home h2 {
-        font-size: 2.5rem; /* Reduced from 6xl */
+        font-size: 2.5rem;
       }
       #home p {
-        font-size: 1.25rem; /* Reduced from 2xl */
+        font-size: 1.25rem;
       }
       #home a {
-        padding: 0.5rem 1.5rem; /* Smaller button padding */
+        padding: 0.5rem 1.5rem;
         font-size: 0.875rem;
       }
       /* General Section Headings: Smaller font on mobile */
       section h2 {
-        font-size: 2.5rem; /* Reduced from 5xl */
+        font-size: 2.5rem;
       }
       section p {
-        font-size: 1rem; /* Reduced from lg */
+        font-size: 1rem;
       }
       /* About Section: Stack cards vertically and adjust padding */
       .about-card {
         padding: 1rem;
       }
       .about-card h3 {
-        font-size: 1.25rem; /* Reduced from 1.5rem */
+        font-size: 1.25rem;
       }
       .about-card p {
-        font-size: 0.875rem; /* Smaller text */
+        font-size: 0.875rem;
       }
       .about-card i {
-        font-size: 1.5rem; /* Reduced from 2rem */
+        font-size: 1.5rem;
       }
       /* Education Section: Adjust card height and font sizes */
       .card-hover {
-        height: 120px; /* Reduced height for mobile */
+        height: 120px;
       }
       .card-front h3 {
-        font-size: 1.25rem; /* Reduced from 2xl */
+        font-size: 1.25rem;
       }
       .card-front p {
-        font-size: 0.875rem; /* Reduced from lg */
+        font-size: 0.875rem;
       }
       .card-back p {
-        font-size: 0.875rem; /* Reduced from lg */
+        font-size: 0.875rem;
       }
       /* Biodata Section: Adjust padding and font sizes */
       .biodata-item {
-        padding: 0.75rem 1rem; /* Reduced padding */
+        padding: 0.75rem 1rem;
       }
       .biodata-label {
-        font-size: 0.875rem; /* Smaller font */
+        font-size: 0.875rem;
       }
       .biodata-value {
-        font-size: 0.875rem; /* Smaller font */
+        font-size: 0.875rem;
       }
       .biodata-item i {
-        font-size: 1rem; /* Reduced from 1.5rem */
+        font-size: 1rem;
       }
       /* Favorites Section: Adjust image height and font sizes */
       .favorite-card img {
-        height: 150px; /* Reduced from 200px */
+        height: 150px;
       }
       .favorite-card h3 {
-        font-size: 1.25rem; /* Reduced from 1.5rem */
+        font-size: 1.25rem;
       }
       .favorite-card p {
-        font-size: 0.875rem; /* Smaller text */
+        font-size: 0.875rem;
       }
       .favorite-card i {
-        font-size: 1.5rem; /* Reduced from 2rem */
+        font-size: 1.5rem;
       }
       /* Donation Section: Adjust padding and font sizes */
       .donation-card {
@@ -725,18 +751,18 @@
         padding: 1rem;
       }
       .contact-card h3 {
-        font-size: 1.25rem; /* Reduced from 1.5rem */
+        font-size: 1.25rem;
       }
       .contact-card i {
-        font-size: 1.5rem; /* Reduced from 2rem */
+        font-size: 1.5rem;
       }
       /* Thank You Section */
       .thankyou-text {
-        font-size: 2.5rem; /* Already set for mobile */
+        font-size: 2.5rem;
       }
       /* Reduce particle density on mobile for performance */
-      .hero-particle, .particle, .about-particle, .biodata-particle, .favorite-particle, .contact-particle, .donation-particle, .leaderboard-particle, .thankyou-particle {
-        display: none; /* Disable particles on mobile to improve performance */
+      .hero-particle, .particle, .about-particle, .biodata-particle, .project-particle, .favorite-particle, .contact-particle, .donation-particle, .leaderboard-particle, .thankyou-particle {
+        display: none;
       }
     }
   </style>
@@ -750,6 +776,7 @@
         <a href="#about" class="nav-link text-lg text-blue-900" data-section="about"><i class="fas fa-user"></i>About</a>
         <a href="#education" class="nav-link text-lg text-blue-900" data-section="education"><i class="fas fa-graduation-cap"></i>Pendidikan</a>
         <a href="#biodata" class="nav-link text-lg text-blue-900" data-section="biodata"><i class="fas fa-id-card"></i>Biodata</a>
+        <a href="#projects" class="nav-link text-lg text-blue-900" data-section="projects"><i class="fas fa-project-diagram"></i>Projects</a>
         <a href="#favorites" class="nav-link text-lg text-blue-900" data-section="favorites"><i class="fas fa-heart"></i>Favorites</a>
         <a href="#donation" class="nav-link text-lg text-blue-900" data-section="donation"><i class="fas fa-donate"></i>Donation</a>
         <a href="#contact" class="nav-link text-lg text-blue-900" data-section="contact"><i class="fas fa-envelope"></i>Contact</a>
@@ -902,6 +929,20 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- My Projects Section -->
+  <section id="projects" class="py-24 relative">
+    <div id="projects-particles"></div>
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+      <h2 class="text-5xl font-extrabold mb-12 fade-in drop-shadow-lg">My Projects</h2>
+      <p class="text-lg mb-8 fade-in max-w-3xl mx-auto">
+        Temukan berbagai proyek inovatif yang telah saya kembangkan, mulai dari website interaktif hingga aplikasi fungsional. Klik untuk melihat karya saya!
+      </p>
+      <a href="project.html" class="mt-8 inline-block bg-yellow-400 text-blue-900 px-8 py-3 rounded-full font-semibold btn-hover">
+        <i class="fas fa-project-diagram mr-2"></i>Lihat Semua Proyek
+      </a>
     </div>
   </section>
 
@@ -1078,22 +1119,6 @@
       });
     });
 
-    // Efek partikel untuk pendidikan
-    const particlesContainer = document.getElementById('particles');
-    function createParticle() {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      particle.style.width = `${Math.random() * 8 + 4}px`;
-      particle.style.height = particle.style.width;
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
-      particlesContainer.appendChild(particle);
-      setTimeout(() => particle.remove(), 15000);
-    }
-    if (window.innerWidth > 768) {
-      setInterval(createParticle, 300);
-    }
-
     // Efek partikel untuk hero
     const heroParticlesContainer = document.getElementById('hero-particles');
     function createHeroParticle() {
@@ -1109,6 +1134,22 @@
     }
     if (window.innerWidth > 768) {
       setInterval(createHeroParticle, 200);
+    }
+
+    // Efek partikel untuk pendidikan
+    const particlesContainer = document.getElementById('particles');
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.width = `${Math.random() * 8 + 4}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+      particlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 15000);
+    }
+    if (window.innerWidth > 768) {
+      setInterval(createParticle, 300);
     }
 
     // Efek partikel untuk about
@@ -1143,6 +1184,23 @@
     }
     if (window.innerWidth > 768) {
       setInterval(createBiodataParticle, 250);
+    }
+
+    // Efek partikel untuk projects
+    const projectsParticlesContainer = document.getElementById('projects-particles');
+    function createProjectParticle() {
+      const particle = document.createElement('div');
+      particle.classList.add('project-particle');
+      particle.style.width = `${Math.random() * 7 + 3}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${Math.random() * 8 + 8}s`;
+      projectsParticlesContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 12000);
+    }
+    if (window.innerWidth > 768) {
+      setInterval(createProjectParticle, 250);
     }
 
     // Efek partikel untuk favorites
@@ -1237,6 +1295,7 @@
       { id: 'about', color: '#10b981' },
       { id: 'education', color: '#facc15' },
       { id: 'biodata', color: '#818cf8' },
+      { id: 'projects', color: '#0ea5e9' },
       { id: 'favorites', color: '#1e3a8a' },
       { id: 'donation', color: '#f97316' },
       { id: 'contact', color: '#ec4899' }
